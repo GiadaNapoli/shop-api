@@ -1,0 +1,21 @@
+import { Request, Response } from "express";
+import { ZUserSchema } from "../validators/user.validator";
+import { fromZodError } from "zod-validation-error";
+import { createUser } from "../services/user.service";
+
+export const addUserHendler = async (req: Request, res: Response) => {
+	const result = ZUserSchema.safeParse(req.body);
+	if (!result.success) {
+		return res.status(400).json(fromZodError(result.error).message);
+	} else {
+		const newUser = await createUser(req.body);
+		if (newUser) {
+			res.status(200).json({
+				message: "user added succefully",
+				newUser,
+			});
+		} else {
+			res.status(400).json("user not added");
+		}
+	}
+};
