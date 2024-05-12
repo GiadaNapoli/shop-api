@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { addUserHendler } from "../controllers/user.controller";
+import { addUserHendler, showAllUsers } from "../controllers/user.controller";
 export const router = Router();
 
 router.post("/", addUserHendler);
+router.get("/", showAllUsers);

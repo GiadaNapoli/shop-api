@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 export const ZUserSchema = z.object({
 	name: z.string().min(2),
 	surname: z.string().min(2),
