@@ -9,8 +9,6 @@ export const getUsers = async (): Promise<ZUserSchema[]> => {
 	return await User.find();
 };
 
-export const getUsersByEmail = async (
-	email: string
-): Promise<ZUserSchema | null> => {
+export const getUsersByEmail = async (email: string) => {
 	return await User.findOne({ email });
 };

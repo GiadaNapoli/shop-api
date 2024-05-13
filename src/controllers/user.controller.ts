@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import { ZUserSchema } from "../validators/user.validator";
 import { fromZodError } from "zod-validation-error";
-import { createUser, getUsers } from "../services/user.service";
+import {
+	createUser,
+	getUsers,
+	getUsersByEmail,
+} from "../services/user.service";
 
-export const addUserHendler = async (req: Request, res: Response) => {
-	const user = req.body.email;
+export const addUserHandler = async (req: Request, res: Response) => {
+	const user = await getUsersByEmail(req.body);
 	if (user) {
-		res.status(409).json("user already exist");
+		res.status(409).json("This email address is already registered.");
 	} else {
 		const result = ZUserSchema.safeParse(req.body);
 		if (!result.success) {

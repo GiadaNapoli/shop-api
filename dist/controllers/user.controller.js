@@ -14,9 +14,9 @@ const user_validator_1 = require("../validators/user.validator");
 const zod_validation_error_1 = require("zod-validation-error");
 const user_service_1 = require("../services/user.service");
 const addUserHendler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body.email;
+    const user = yield (0, user_service_1.getUsersByEmail)(req.body.email);
     if (user) {
-        res.status(400).json("email already exist");
+        res.status(409).json("This email address is already registered.");
     }
     else {
         const result = user_validator_1.ZUserSchema.safeParse(req.body);
