@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showAllUsers = exports.addUserHendler = void 0;
+exports.showAllUsers = exports.addUserHandler = void 0;
 const user_validator_1 = require("../validators/user.validator");
 const zod_validation_error_1 = require("zod-validation-error");
 const user_service_1 = require("../services/user.service");
-const addUserHendler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const addUserHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_service_1.getUsersByEmail)(req.body.email);
     if (user) {
         res.status(409).json("This email address is already registered.");
@@ -37,7 +37,7 @@ const addUserHendler = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
 });
-exports.addUserHendler = addUserHendler;
+exports.addUserHandler = addUserHandler;
 const showAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield (0, user_service_1.getUsers)();
     try {

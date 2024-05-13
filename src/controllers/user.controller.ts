@@ -8,7 +8,7 @@ import {
 } from "../services/user.service";
 
 export const addUserHandler = async (req: Request, res: Response) => {
-	const user = await getUsersByEmail(req.body);
+	const user = await getUsersByEmail(req.body.email);
 	if (user) {
 		res.status(409).json("This email address is already registered.");
 	} else {

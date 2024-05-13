@@ -4,5 +4,5 @@ exports.router = void 0;
 const express_1 = require("express");
 const user_controller_1 = require("../controllers/user.controller");
 exports.router = (0, express_1.Router)();
-exports.router.post("/", user_controller_1.addUserHendler);
+exports.router.post("/", user_controller_1.addUserHandler);
 exports.router.get("/", user_controller_1.showAllUsers);
