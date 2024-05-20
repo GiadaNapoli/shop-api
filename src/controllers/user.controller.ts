@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import { fromZodError } from "zod-validation-error";
 import {
 	createUser,
+	deleteUser,
+	findUserAndUpdate,
+	getUserById,
 	getUsers,
 	getUsersByEmail,
 } from "../services/user.service";
@@ -57,6 +60,35 @@ export const showAllUsers = async (req: Request, res: Response) => {
 	const users = await getUsers();
 	try {
 		res.status(200).json(users);
+	} catch (error) {
+		res.status(400).json(error);
+	}
+};
+
+export const showUserById = async (req: Request, res: Response) => {
+	const userById = await getUserById(req.params.id);
+	if (userById) {
+		res.status(200).json(userById);
+	}
+	res.status(400).json("user not found");
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+	const updatedUser = await findUserAndUpdate(req.params.id, req.body);
+	if (updatedUser) {
+		res.status(200).json({ message: "user updated", updateUser });
+	} else {
+		res.status(400).json("user not updated");
+	}
+};
+
+export const removeUser = async (req: Request, res: Response) => {
+	const userDeleted = await deleteUser(req.params.id);
+	try {
+		if (!userDeleted) {
+			res.status(400).json("user not found");
+		}
+		res.status(200).json({ message: "user deleted", userDeleted });
 	} catch (error) {
 		res.status(400).json(error);
 	}

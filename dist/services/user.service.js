@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUsersByEmail = exports.getUsers = exports.createUser = void 0;
+exports.deleteUser = exports.findUserAndUpdate = exports.getUserById = exports.getUsersByEmail = exports.getUsers = exports.createUser = void 0;
 const user_model_1 = require("../models/user.model");
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     return user_model_1.User.create(user);
@@ -23,3 +23,15 @@ const getUsersByEmail = (email) => __awaiter(void 0, void 0, void 0, function* (
     return yield user_model_1.User.findOne({ email });
 });
 exports.getUsersByEmail = getUsersByEmail;
+const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_model_1.User.findById(id);
+});
+exports.getUserById = getUserById;
+const findUserAndUpdate = (id, user) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_model_1.User.findByIdAndUpdate(id, user, { new: true });
+});
+exports.findUserAndUpdate = findUserAndUpdate;
+const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_model_1.User.findByIdAndDelete(id);
+});
+exports.deleteUser = deleteUser;

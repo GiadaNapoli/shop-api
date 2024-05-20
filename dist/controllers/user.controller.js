@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showAllUsers = exports.logIn = exports.register = void 0;
+exports.removeUser = exports.updateUser = exports.showUserById = exports.showAllUsers = exports.logIn = exports.register = void 0;
 const user_validator_1 = require("../validators/user.validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_validation_error_1 = require("zod-validation-error");
@@ -74,3 +74,34 @@ const showAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.showAllUsers = showAllUsers;
+const showUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userById = yield (0, user_service_1.getUserById)(req.params.id);
+    if (userById) {
+        res.status(200).json(userById);
+    }
+    res.status(400).json("user not found");
+});
+exports.showUserById = showUserById;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedUser = yield (0, user_service_1.findUserAndUpdate)(req.params.id, req.body);
+    if (updatedUser) {
+        res.status(200).json({ message: "user updated", updateUser: exports.updateUser });
+    }
+    else {
+        res.status(400).json("user not updated");
+    }
+});
+exports.updateUser = updateUser;
+const removeUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userDeleted = yield (0, user_service_1.deleteUser)(req.params.id);
+    try {
+        if (!userDeleted) {
+            res.status(400).json("user not found");
+        }
+        res.status(200).json({ message: "user deleted", userDeleted });
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+});
+exports.removeUser = removeUser;

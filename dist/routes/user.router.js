@@ -7,3 +7,6 @@ exports.router = (0, express_1.Router)();
 exports.router.post("/register", user_controller_1.register);
 exports.router.post("/login", user_controller_1.logIn);
 exports.router.get("/", user_controller_1.showAllUsers);
+exports.router.get("/:id", user_controller_1.showUserById);
+exports.router.patch("/:id", user_controller_1.updateUser);
+exports.router.delete("/:id", user_controller_1.removeUser);

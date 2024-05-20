@@ -9,6 +9,23 @@ export const getUsers = async (): Promise<ZUserSchema[]> => {
 	return await User.find();
 };
 
-export const getUsersByEmail = async (email: string) => {
+export const getUsersByEmail = async (
+	email: string
+): Promise<ZUserSchema | null> => {
 	return await User.findOne({ email });
+};
+
+export const getUserById = async (id: string): Promise<ZUserSchema | null> => {
+	return await User.findById(id);
+};
+
+export const findUserAndUpdate = async (
+	id: string,
+	user: ZUserSchema
+): Promise<ZUserSchema | null> => {
+	return await User.findByIdAndUpdate(id, user, { new: true });
+};
+
+export const deleteUser = async (id: string): Promise<ZUserSchema | null> => {
+	return await User.findByIdAndDelete(id);
 };

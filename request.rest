@@ -1,23 +1,49 @@
 GET http://localhost:3000/
 ####
+
+
 GET http://localhost:3000/user
 ####
+
+
+GET http://localhost:3000/user/664b0ea504e61a1a0e5075ec
+####
+
+
 POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-    "name":"Andrea",
-    "surname": "gialli",
-    "email": "andreagialli@gmail.com",
-    "password":"giallo123"
+    "name":"Frank",
+    "surname": "Zappa",
+    "email": "frank@gmail.com",
+    "password":"tranquifranki1"
 }
 ####
+
+
 POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "name":"Andrea",
-    "surname": "gialli",
-    "email": "andreagialli@gmail.com",
+    "name":"Frank",
+    "surname": "Zappa",
+    "email": "frank@gmail.com",
+    "password":"tranquifranki1"
+}
+
+
+####
+PATCH http://localhost:3000/user/66410fba8fd539a8acc2301e
+Content-Type: application/json
+
+{
+    "name":"Etta",
+    "surname": "James",
+    "email": "ettajames@gmail.com",
     "password":"giallo223"
 }
+####
+
+DELETE  http://localhost:3000/user/664112507a4c29a35b1a2275
+
