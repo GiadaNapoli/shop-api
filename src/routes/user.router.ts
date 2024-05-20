@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { addUserHandler, showAllUsers } from "../controllers/user.controller";
+import { logIn, register, showAllUsers } from "../controllers/user.controller";
 export const router = Router();
 
-router.post("/", addUserHandler);
+router.post("/register", register);
+router.post("/login", logIn);
 router.get("/", showAllUsers);
