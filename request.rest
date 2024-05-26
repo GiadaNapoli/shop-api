@@ -14,10 +14,10 @@ POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-    "name":"Frank",
-    "surname": "Zappa",
-    "email": "frank@gmail.com",
-    "password":"tranquifranki1"
+    "name":"Shirley",
+    "surname": "Jackson",
+    "email": "jackson@gmail.com",
+    "password":"Lizzie2"
 }
 ####
 
@@ -45,5 +45,5 @@ Content-Type: application/json
 }
 ####
 
-DELETE  http://localhost:3000/user/664112507a4c29a35b1a2275
+DELETE  http://localhost:3000/user/665319af40d68c56a56cd8f7
 

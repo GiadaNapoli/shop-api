@@ -17,6 +17,7 @@ const user_validator_1 = require("../validators/user.validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_validation_error_1 = require("zod-validation-error");
 const user_service_1 = require("../services/user.service");
+const mailer_service_1 = require("../services/mailer.service");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_service_1.getUsersByEmail)(req.body.email);
     if (user) {
@@ -31,9 +32,10 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const newUser = yield (0, user_service_1.createUser)(req.body);
             if (newUser) {
                 res.status(200).json({
-                    message: "user added succefully",
+                    message: "User added successfully",
                     newUser,
                 });
+                (0, mailer_service_1.sendMail)(req.body.email, req.body.name); //Add a check to verify if the email was successfully sent.
             }
             else {
                 res.status(400).json("user not added");
@@ -57,7 +59,7 @@ const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 res.status(200).json("You are loggin");
             }
         }
-        res.status(400).json("invalid password or email");
+        res.status(400).json("Invalid password or email");
     }
     else {
         res.status(400).json((0, zod_validation_error_1.fromZodError)(result.error).message);

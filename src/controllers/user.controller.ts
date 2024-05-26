@@ -10,6 +10,7 @@ import {
 	getUsers,
 	getUsersByEmail,
 } from "../services/user.service";
+import { sendMail } from "../services/mailer.service";
 
 export const register = async (req: Request, res: Response) => {
 	const user = await getUsersByEmail(req.body.email);
@@ -23,9 +24,10 @@ export const register = async (req: Request, res: Response) => {
 			const newUser = await createUser(req.body);
 			if (newUser) {
 				res.status(200).json({
-					message: "user added succefully",
+					message: "User added successfully",
 					newUser,
 				});
+				sendMail(req.body.email, req.body.name); //Add a check to verify if the email was successfully sent.
 			} else {
 				res.status(400).json("user not added");
 			}
@@ -50,7 +52,7 @@ export const logIn = async (req: Request, res: Response) => {
 				res.status(200).json("You are loggin");
 			}
 		}
-		res.status(400).json("invalid password or email");
+		res.status(400).json("Invalid password or email");
 	} else {
 		res.status(400).json(fromZodError(result.error).message);
 	}
