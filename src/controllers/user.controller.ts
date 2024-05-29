@@ -12,6 +12,7 @@ import {
 import { sendMail } from "../services/mailer.service";
 import { ZLoginSchema } from "../validators/login.validator";
 import { comparePassword } from "../security/bcrypt";
+import { createToken } from "../security/token";
 
 export const register = async (req: Request, res: Response) => {
 	const user = await getUsersByEmail(req.body.email);
@@ -41,6 +42,7 @@ export const logIn = async (req: Request, res: Response) => {
 	if (result.success) {
 		const user = req.body;
 		const userEmail = await getUsersByEmail(req.body.email);
+
 		if (userEmail) {
 			const validPassword = await comparePassword(
 				user.password,
@@ -50,8 +52,13 @@ export const logIn = async (req: Request, res: Response) => {
 			if (!validPassword) {
 				res.status(400).json("Invalid password or email");
 			} else {
-				res.status(200).json("You are loggin");
-				//devi aggiungere il token
+				console.log(userEmail);
+
+				const accesstoken = await createToken(userEmail._id!);
+				res.status(200).json({
+					message: "You are loggin",
+					accesstoken,
+				});
 			}
 		}
 		res.status(400).json("Invalid password or email");

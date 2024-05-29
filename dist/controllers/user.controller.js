@@ -16,6 +16,7 @@ const user_service_1 = require("../services/user.service");
 const mailer_service_1 = require("../services/mailer.service");
 const login_validator_1 = require("../validators/login.validator");
 const bcrypt_1 = require("../security/bcrypt");
+const token_1 = require("../security/token");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_service_1.getUsersByEmail)(req.body.email);
     if (user) {
@@ -54,8 +55,12 @@ const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 res.status(400).json("Invalid password or email");
             }
             else {
-                res.status(200).json("You are loggin");
-                //devi aggiungere il token
+                console.log(userEmail);
+                const accesstoken = yield (0, token_1.createToken)(userEmail._id);
+                res.status(200).json({
+                    message: "You are loggin",
+                    accesstoken,
+                });
             }
         }
         res.status(400).json("Invalid password or email");

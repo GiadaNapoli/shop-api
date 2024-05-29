@@ -16,6 +16,10 @@ exports.User = exports.userSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = require("../security/bcrypt");
 exports.userSchema = new mongoose_1.default.Schema({
+    _id: {
+        type: String,
+        required: false,
+    },
     name: {
         type: String,
         required: true,
