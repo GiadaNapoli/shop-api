@@ -12,37 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.userSchema = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const bcrypt_1 = require("../security/bcrypt");
-exports.userSchema = new mongoose_1.default.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    surname: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-}, { timestamps: true });
-exports.userSchema.pre("save", function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const user = this;
-        try {
-            user.password = yield (0, bcrypt_1.hashPassword)(user.password);
-            next();
-        }
-        catch (error) {
-            next();
-        }
-    });
+exports.comparePassword = exports.hashPassword = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield bcrypt_1.default.hash(password, 10);
 });
-exports.User = mongoose_1.default.model("User", exports.userSchema);
+exports.hashPassword = hashPassword;
+const comparePassword = (userPassword, hashedPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield bcrypt_1.default.compare(userPassword, hashedPassword);
+});
+exports.comparePassword = comparePassword;

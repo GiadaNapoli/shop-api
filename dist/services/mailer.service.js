@@ -28,9 +28,9 @@ function sendMail(newemail, name) {
         const info = yield transport.sendMail({
             from: "info@mailtrap.io", // sender address
             to: newemail, // list of receivers
-            subject: `Welcome ${name}`, // Subject line
-            text: `welocome ${name}We are excited to have you as a member of our community.`, // plain text body
-            html: `<b>Welcome aboard, ${name}!</b> We are thrilled to have you join us.`, // Update HTML content
+            subject: `Welcome ${name} `, // Subject line
+            text: `welocome ${name} We are excited to have you as a member of our community.`, // plain text body
+            html: `<b>Welcome aboard, ${name} !</b> We are thrilled to have you join us.`, // Update HTML content
         });
         console.log("Message sent: %s", info.messageId);
     });

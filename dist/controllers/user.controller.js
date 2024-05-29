@@ -8,16 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeUser = exports.updateUser = exports.showUserById = exports.showAllUsers = exports.logIn = exports.register = void 0;
 const user_validator_1 = require("../validators/user.validator");
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_validation_error_1 = require("zod-validation-error");
 const user_service_1 = require("../services/user.service");
 const mailer_service_1 = require("../services/mailer.service");
+const login_validator_1 = require("../validators/login.validator");
+const bcrypt_1 = require("../security/bcrypt");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_service_1.getUsersByEmail)(req.body.email);
     if (user) {
@@ -45,18 +43,19 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.register = register;
 const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = user_validator_1.ZUserSchema.safeParse(req.body);
+    const result = login_validator_1.ZLoginSchema.safeParse(req.body);
     if (result.success) {
         const user = req.body;
         const userEmail = yield (0, user_service_1.getUsersByEmail)(req.body.email);
         if (userEmail) {
-            const validPassword = yield bcrypt_1.default.compare(user.password, userEmail.password);
+            const validPassword = yield (0, bcrypt_1.comparePassword)(user.password, userEmail.password);
             console.log(validPassword);
             if (!validPassword) {
                 res.status(400).json("Invalid password or email");
             }
             else {
                 res.status(200).json("You are loggin");
+                //devi aggiungere il token
             }
         }
         res.status(400).json("Invalid password or email");
@@ -80,6 +79,10 @@ const showUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const userById = yield (0, user_service_1.getUserById)(req.params.id);
     if (userById) {
         res.status(200).json(userById);
+        //Add a feature that allows users to retrieve their own data without including their password
+        //const userData = await getUserData(userId);
+        //delete userData.password;
+        //res.json(userData);
     }
     res.status(400).json("user not found");
 });

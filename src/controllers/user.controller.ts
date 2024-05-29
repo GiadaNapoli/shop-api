@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { ZUserSchema } from "../validators/user.validator";
-import bcrypt from "bcrypt";
 import { fromZodError } from "zod-validation-error";
 import {
 	createUser,
@@ -11,6 +10,8 @@ import {
 	getUsersByEmail,
 } from "../services/user.service";
 import { sendMail } from "../services/mailer.service";
+import { ZLoginSchema } from "../validators/login.validator";
+import { comparePassword } from "../security/bcrypt";
 
 export const register = async (req: Request, res: Response) => {
 	const user = await getUsersByEmail(req.body.email);
@@ -36,12 +37,12 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const logIn = async (req: Request, res: Response) => {
-	const result = ZUserSchema.safeParse(req.body);
+	const result = ZLoginSchema.safeParse(req.body);
 	if (result.success) {
 		const user = req.body;
 		const userEmail = await getUsersByEmail(req.body.email);
 		if (userEmail) {
-			const validPassword = await bcrypt.compare(
+			const validPassword = await comparePassword(
 				user.password,
 				userEmail.password
 			);
@@ -50,6 +51,7 @@ export const logIn = async (req: Request, res: Response) => {
 				res.status(400).json("Invalid password or email");
 			} else {
 				res.status(200).json("You are loggin");
+				//devi aggiungere il token
 			}
 		}
 		res.status(400).json("Invalid password or email");
@@ -71,6 +73,10 @@ export const showUserById = async (req: Request, res: Response) => {
 	const userById = await getUserById(req.params.id);
 	if (userById) {
 		res.status(200).json(userById);
+		//Add a feature that allows users to retrieve their own data without including their password
+		//const userData = await getUserData(userId);
+		//delete userData.password;
+		//res.json(userData);
 	}
 	res.status(400).json("user not found");
 };

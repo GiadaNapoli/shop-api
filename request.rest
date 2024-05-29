@@ -26,8 +26,6 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "name":"Frank",
-    "surname": "Zappa",
     "email": "frank@gmail.com",
     "password":"tranquifranki1"
 }
@@ -45,5 +43,5 @@ Content-Type: application/json
 }
 ####
 
-DELETE  http://localhost:3000/user/665319af40d68c56a56cd8f7
+DELETE  http://localhost:3000/user/66531ad240d68c56a56cd901
 

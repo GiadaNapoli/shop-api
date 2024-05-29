@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { ZUserSchema } from "../validators/user.validator";
-import { hashPassword } from "../utility/common.functions";
+import { hashPassword } from "../security/bcrypt";
 
-const userSchema = new mongoose.Schema<ZUserSchema>(
+export const userSchema = new mongoose.Schema<ZUserSchema>(
 	{
 		name: {
 			type: String,
