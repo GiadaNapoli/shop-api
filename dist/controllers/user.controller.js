@@ -81,7 +81,7 @@ const showAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.showAllUsers = showAllUsers;
 const showUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userById = yield (0, user_service_1.getUserById)(req.params.id);
+    const userById = yield (0, user_service_1.getUserById)(req.params._id);
     if (userById) {
         res.status(200).json(userById);
         //Add a feature that allows users to retrieve their own data without including their password

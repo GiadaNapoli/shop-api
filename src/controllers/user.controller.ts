@@ -77,7 +77,7 @@ export const showAllUsers = async (req: Request, res: Response) => {
 };
 
 export const showUserById = async (req: Request, res: Response) => {
-	const userById = await getUserById(req.params.id);
+	const userById = await getUserById(req.params._id);
 	if (userById) {
 		res.status(200).json(userById);
 		//Add a feature that allows users to retrieve their own data without including their password

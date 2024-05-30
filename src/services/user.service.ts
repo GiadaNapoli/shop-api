@@ -15,8 +15,9 @@ export const getUsersByEmail = async (
 	return await User.findOne({ email });
 };
 
-export const getUserById = async (id: string): Promise<ZUserSchema | null> => {
-	return await User.findById(id);
+export const getUserById = async (_id: string): Promise<ZUserSchema | null> => {
+	console.log(_id);
+	return await User.findById(_id);
 };
 
 export const findUserAndUpdate = async (

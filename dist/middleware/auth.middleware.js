@@ -9,17 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyToken = exports.createToken = void 0;
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const createToken = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = { name: id };
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET
-    //{expiresIn: "15s",}
-    );
+exports.authenticateToken = void 0;
+const token_1 = require("../security/token");
+const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const token = (_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+    if (token == null)
+        return res.status(401).json("token not provide");
+    try {
+        const decodedToken = yield (0, token_1.verifyToken)(token);
+        console.log(decodedToken);
+        req.params = { _id: decodedToken.name };
+        next();
+    }
+    catch (error) {
+        console.error("Error verifying token:", error);
+    }
 });
-exports.createToken = createToken;
-const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
-    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-});
-exports.verifyToken = verifyToken;
+exports.authenticateToken = authenticateToken;

@@ -3,10 +3,11 @@ GET http://localhost:3000/
 
 
 GET http://localhost:3000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiNjY0YjNmZjU4MjE1ZTYyYjEyMjZiMTMzIiwiaWF0IjoxNzE3MDYyNzAwfQ.MVnNAWaspnzZ5qJTouCWBK0sBq5100209NygKki-uCY
 ####
 
 
-GET http://localhost:3000/user/664b0ea504e61a1a0e5075ec
+GET http://localhost:3000/user/
 ####
 
 

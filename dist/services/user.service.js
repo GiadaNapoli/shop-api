@@ -23,8 +23,9 @@ const getUsersByEmail = (email) => __awaiter(void 0, void 0, void 0, function* (
     return yield user_model_1.User.findOne({ email });
 });
 exports.getUsersByEmail = getUsersByEmail;
-const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield user_model_1.User.findById(id);
+const getUserById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(_id);
+    return yield user_model_1.User.findById(_id);
 });
 exports.getUserById = getUserById;
 const findUserAndUpdate = (id, user) => __awaiter(void 0, void 0, void 0, function* () {

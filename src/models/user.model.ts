@@ -4,10 +4,10 @@ import { hashPassword } from "../security/bcrypt";
 
 export const userSchema = new mongoose.Schema<ZUserSchema>(
 	{
-		_id: {
-			type: String,
-			required: false,
-		},
+		// _id: {
+		// 	type: String,
+		// 	required: false,
+		// },
 		name: {
 			type: String,
 			required: true,

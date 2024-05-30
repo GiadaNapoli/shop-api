@@ -9,3 +9,7 @@ export const createToken = async (id: string) => {
 		//{expiresIn: "15s",}
 	);
 };
+
+export const verifyToken = async (token: string) => {
+	return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+};
